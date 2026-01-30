@@ -1,12 +1,13 @@
 package org.example;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("== 명언 앱 ==");
+        List<WiseSaying> sayings = new ArrayList<>();
         int cnt = 0 ;
 
         while(true){
@@ -14,14 +15,29 @@ public class Main {
             String cmd = sc.nextLine();
 
             if(cmd.equals("등록")){
+                WiseSaying saying = new WiseSaying();
                 System.out.print("명언:");
-                sc.nextLine();
+                saying.saying = sc.nextLine();
                 System.out.print("작가:");
-                sc.nextLine();
-                cnt++;
+                saying.writer = sc.nextLine();
+                saying.id = ++cnt;
+                sayings.add(saying);
                 System.out.println(cnt+"번 명언이 등록되었습니다.");
+            }
+            else if(cmd.equals("목록")){
+                Collections.reverse(sayings);
+                for(WiseSaying saying : sayings){
+                    System.out.println(saying.id+"/"+saying.writer+"/"+saying.saying);
+                }
             }
             else break;
         }
     }
+}
+
+
+class WiseSaying{
+    public int id;
+    public String writer;
+    public String saying;
 }
