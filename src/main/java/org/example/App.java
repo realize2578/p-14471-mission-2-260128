@@ -68,33 +68,52 @@ public class App {
     private void actionDelete(String cmd){
 
         int toDel = Integer.parseInt(cmd.split("=")[1]); // 명령 문자열에서 id값 추출
-        boolean isExist = sayings.removeIf(saying -> saying.id == toDel);
+
+        boolean isExist = delete(toDel);
 
         if (isExist)System.out.println(toDel+"번 명언이 삭제되었습니다.");
         else System.out.println(toDel+"번 명언은 존재하지 않습니다.");
     }
 
+    private boolean delete(int toDel){
+
+        return sayings.removeIf(saying -> saying.id == toDel);
+
+    }
+
     private void actionModify(String cmd){
         int toMod = Integer.parseInt(cmd.split("=")[1]); // 명령 문자열에서 id값 추출
 
-        boolean isModified = false;
+        WiseSaying wiseSaying = findById(toMod);
+
+        if (wiseSaying != null){
+
+            System.out.println("명언(기존):"+wiseSaying.saying);
+            String saying = sc.nextLine();
+
+            System.out.println("작가(기존):"+wiseSaying.writer);
+            String writer = sc.nextLine();
+
+            modify(saying,writer,wiseSaying);
+
+            System.out.println(toMod+"번 명언이 수정되었습니다.");
+        }
+
+        else System.out.println(toMod+"번 명언은 존재하지 않습니다.");
+
+    }
+    private WiseSaying findById(int id){
 
         for(WiseSaying saying : sayings){
 
-            if(saying.id == toMod){
-
-                System.out.println("명언(기존):"+saying.saying);
-                saying.saying = sc.nextLine();
-
-                System.out.println("작가(기존):"+saying.writer);
-                saying.writer = sc.nextLine();
-
-                isModified = true;
+            if(saying.id == id){
+                return saying;
             }
         }
-
-        if (isModified)System.out.println(toMod+"번 명언이 수정되었습니다.");
-        else System.out.println(toMod+"번 명언은 존재하지 않습니다.");
-
+        return null;
+    }
+    private void modify(String saying, String wrtier, WiseSaying wiseSaying){
+        wiseSaying.saying = saying;
+        wiseSaying.writer = wrtier;
     }
 }
