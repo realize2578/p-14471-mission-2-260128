@@ -40,14 +40,14 @@ public class App {
 
         WiseSaying saying = new WiseSaying();
         System.out.print("명언:");
-        saying.saying = sc.nextLine();
+        saying.setSaying(sc.nextLine());
 
         System.out.print("작가:");
-        saying.writer = sc.nextLine();
+        saying.setWriter(sc.nextLine());
 
         sayings.add(saying);
 
-        saying.id = ++cnt;
+        saying.setId(++cnt);
         System.out.println(cnt+"번 명언이 등록되었습니다.");
 
     }
@@ -57,7 +57,7 @@ public class App {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("---------------------");
         for(WiseSaying saying : foundedSayings){
-            System.out.println(saying.id+" / "+saying.writer+" / "+saying.saying);
+            System.out.println(saying.getId()+" / "+saying.getWriter()+" / "+saying.getSaying());
         }
     }
 
@@ -77,7 +77,7 @@ public class App {
 
     private boolean delete(int toDel){
 
-        return sayings.removeIf(saying -> saying.id == toDel);
+        return sayings.removeIf(saying -> saying.getId() == toDel);
 
     }
 
@@ -88,10 +88,10 @@ public class App {
 
         if (wiseSaying != null){
 
-            System.out.println("명언(기존):"+wiseSaying.saying);
+            System.out.println("명언(기존):"+wiseSaying.getSaying());
             String saying = sc.nextLine();
 
-            System.out.println("작가(기존):"+wiseSaying.writer);
+            System.out.println("작가(기존):"+wiseSaying.getWriter());
             String writer = sc.nextLine();
 
             modify(saying,writer,wiseSaying);
@@ -106,14 +106,14 @@ public class App {
 
         for(WiseSaying saying : sayings){
 
-            if(saying.id == id){
+            if(saying.getId() == id){
                 return saying;
             }
         }
         return null;
     }
     private void modify(String saying, String wrtier, WiseSaying wiseSaying){
-        wiseSaying.saying = saying;
-        wiseSaying.writer = wrtier;
+        wiseSaying.setSaying(saying);
+        wiseSaying.setWriter(wrtier);
     }
 }
