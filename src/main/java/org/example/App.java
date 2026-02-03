@@ -38,17 +38,25 @@ public class App {
 
     private void actionWrite(){
 
-        WiseSaying saying = new WiseSaying();
+
         System.out.print("명언:");
-        saying.setSaying(sc.nextLine());
+        String saying = sc.nextLine();
 
         System.out.print("작가:");
-        saying.setWriter(sc.nextLine());
+        String writer = sc.nextLine();
 
-        sayings.add(saying);
+        write(saying,writer);
 
-        saying.setId(++cnt);
         System.out.println(cnt+"번 명언이 등록되었습니다.");
+
+    }
+    private void write(String saying ,String writer){
+
+        WiseSaying wiseSaying = new WiseSaying();
+        wiseSaying.setSaying(saying);
+        wiseSaying.setWriter(writer);
+        sayings.add(wiseSaying);
+        wiseSaying.setId(++cnt);
 
     }
 
