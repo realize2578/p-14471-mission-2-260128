@@ -5,6 +5,12 @@ class WiseSaying{
     private String writer;
     private String saying;
 
+    public WiseSaying(int id, String writer, String saying) {
+        this.id = id;
+        this.writer = writer;
+        this.saying = saying;
+    }
+
     public int getId() {
         return id;
     }

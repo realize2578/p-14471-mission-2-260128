@@ -52,11 +52,8 @@ public class App {
     }
     private void write(String saying ,String writer){
 
-        WiseSaying wiseSaying = new WiseSaying();
-        wiseSaying.setSaying(saying);
-        wiseSaying.setWriter(writer);
+        WiseSaying wiseSaying = new WiseSaying(++cnt,writer,saying);
         sayings.add(wiseSaying);
-        wiseSaying.setId(++cnt);
 
     }
 
