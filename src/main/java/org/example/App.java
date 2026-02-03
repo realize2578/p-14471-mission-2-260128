@@ -29,32 +29,72 @@ public class App {
             else if(cmd.contains("삭제?id=")){
                 actionDelete(cmd);
             }
+            else if(cmd.contains("수정?id=")){
+                actionModify(cmd);
+            }
             else break;
         }
     }
 
     private void actionWrite(){
+
         WiseSaying saying = new WiseSaying();
         System.out.print("명언:");
         saying.saying = sc.nextLine();
+
         System.out.print("작가:");
         saying.writer = sc.nextLine();
-        saying.id = ++cnt;
+
         sayings.add(saying);
+
+        saying.id = ++cnt;
         System.out.println(cnt+"번 명언이 등록되었습니다.");
+
     }
 
     private void actionList(){
-        Collections.reverse(sayings);
-        for(WiseSaying saying : sayings){
-            System.out.println(saying.id+"/"+saying.writer+"/"+saying.saying);
+        List<WiseSaying> foundedSayings = findList();
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("---------------------");
+        for(WiseSaying saying : foundedSayings){
+            System.out.println(saying.id+" / "+saying.writer+" / "+saying.saying);
         }
     }
 
+    private List<WiseSaying> findList(){
+        return sayings.reversed();
+    }
+
     private void actionDelete(String cmd){
-        int toDel = Integer.parseInt(cmd); // 명령 문자열에서 id값 추출
-        boolean isExist = sayings.removeIf(saying -> saying.id == toDel); //
+
+        int toDel = Integer.parseInt(cmd.split("=")[1]); // 명령 문자열에서 id값 추출
+        boolean isExist = sayings.removeIf(saying -> saying.id == toDel);
+
         if (isExist)System.out.println(toDel+"번 명언이 삭제되었습니다.");
         else System.out.println(toDel+"번 명언은 존재하지 않습니다.");
+    }
+
+    private void actionModify(String cmd){
+        int toMod = Integer.parseInt(cmd.split("=")[1]); // 명령 문자열에서 id값 추출
+
+        boolean isModified = false;
+
+        for(WiseSaying saying : sayings){
+
+            if(saying.id == toMod){
+
+                System.out.println("명언(기존):"+saying.saying);
+                saying.saying = sc.nextLine();
+
+                System.out.println("작가(기존):"+saying.writer);
+                saying.writer = sc.nextLine();
+
+                isModified = true;
+            }
+        }
+
+        if (isModified)System.out.println(toMod+"번 명언이 수정되었습니다.");
+        else System.out.println(toMod+"번 명언은 존재하지 않습니다.");
+
     }
 }
